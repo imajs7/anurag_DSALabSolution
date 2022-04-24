@@ -7,15 +7,35 @@ import java.util.Queue;
 
 public class StackUsingQueue {
 	
-	Queue<Integer> q1;
-	Queue<Integer> q2;
+	private Queue<Integer> q1;
+	private Queue<Integer> q2;
+	private Queue<Integer> temp;
 	
 	StackUsingQueue(){
 		q1 = new LinkedList<Integer>();
 		q2 = new LinkedList<Integer>();
+		temp = new LinkedList<Integer>();
 	}
 	
 	public void push(int data) {
+		
+		q2.add(data);
+		
+		int sizeOfq1 = q1.size();
+		
+		if( sizeOfq1 > 0 ) {
+			
+			for(int i = 0; i < sizeOfq1; i++) {
+				q2.add( q1.remove() );
+			}
+			
+		}
+		
+		temp = q2;
+		q2 = q1;
+		q1 = temp;
+		
+		/*
 		if( q1.isEmpty() )
 			q1.add(data);
 		else {
@@ -34,6 +54,7 @@ public class StackUsingQueue {
 				q1.add( q2.remove() );
 			}
 		}
+		*/
 	}
 	
 	public boolean isEmpty() {
@@ -47,6 +68,7 @@ public class StackUsingQueue {
 	public void display() {
 		Iterator<Integer> itr = q1.iterator();
 		
+		System.out.print("Stack = ");
 		while ( itr.hasNext() )
 			System.out.print(itr.next() + " ");
 	}
@@ -56,6 +78,12 @@ public class StackUsingQueue {
 			throw new NoSuchElementException("Cannot pop. The stack is empty!");
 		
 		return q1.remove();
+	}
+	
+	public int peek() {
+		if( q1.isEmpty() )
+			throw new NoSuchElementException("Cannot peek. The stack is empty!");
+		return q1.peek();
 	}
 
 }
