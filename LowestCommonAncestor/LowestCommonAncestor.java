@@ -6,8 +6,6 @@ import java.util.List;
 public class LowestCommonAncestor {
 	
 	private Node root;
-	private List<Integer> path1 = new ArrayList<Integer>();
-	private List<Integer> path2 = new ArrayList<Integer>();
 	
 	LowestCommonAncestor(){
 		this.root = null;
@@ -86,30 +84,30 @@ public class LowestCommonAncestor {
 	
 	private int lcaIterative(Node node, int data1, int data2) {
 		
-		this.path1.clear();
-		this.path2.clear();
+		List<Integer> path1 = new ArrayList<Integer>();
+		List<Integer> path2 = new ArrayList<Integer>();
 		
-		boolean path1 = getPath(node, data1, this.path1);
-		boolean path2 = getPath(node, data2, this.path2);
+		boolean path1Exists = getPath(node, data1, path1);
+		boolean path2Exists = getPath(node, data2, path2);
 		
-		if(!path1) {
+		if(!path1Exists) {
 			System.out.printf("node{%d} is missing!", data1);
 			return -1;
 		}
 		
-		if(!path2) {
+		if(!path2Exists) {
 			System.out.printf("node{%d} is missing!", data2);
 			return -1;
 		}
 		
 		int i;
-		for(i = 0; i < this.path1.size() && i < this.path2.size(); i++) {
-			if( ! this.path1.get(i).equals(this.path2.get(i)) ) {
+		for(i = 0; i < path1.size() && i < path2.size(); i++) {
+			if( ! path1.get(i).equals(path2.get(i)) ) {
 				break;
 			}
 		}
 		
-		return this.path1.get(i-1);
+		return path1.get(i-1);
 	}
 	
 	private boolean getPath(Node node, int data, List<Integer> path) {
