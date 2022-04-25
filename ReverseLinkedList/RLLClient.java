@@ -1,5 +1,7 @@
 package com.greatlearning.ReverseLinkedList;
 
+import java.util.NoSuchElementException;
+
 public class RLLClient {
 
 	public static void main(String[] args) {
@@ -23,7 +25,11 @@ public class RLLClient {
 		
 		ll.search(25);
 		
-		System.out.println( ll.remove(45) + " deleted!");
+		try {
+			System.out.println( ll.remove(35) + " deleted!");
+		} catch(NoSuchElementException e) {
+			System.out.println( "Error : " + e.getMessage() );
+		}
 		
 		ll.display();
 		
